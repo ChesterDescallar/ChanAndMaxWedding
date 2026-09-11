@@ -1,13 +1,10 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Botanical } from './components/Botanical';
 import { Countdown } from './components/Countdown';
 import { ParallaxLayer } from './components/ParallaxLayer';
 import { Reveal } from './components/Reveal';
 import './App.css';
-
-const RSVP_EMAIL = 'chantilyandmax.rsvp@gmail.com';
-const RSVP_DEADLINE = 'November 28, 2027';
 
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -30,30 +27,33 @@ function Hero() {
       </motion.div>
 
       <motion.div className="hero__content" style={{ opacity: fade }}>
-        <Reveal delay={0.1}>
-          <p className="eyebrow">Together with their families</p>
+        <Reveal delay={0.05}>
+          <Botanical variant="bloom" className="botanical hero__crest" />
         </Reveal>
-        <Reveal delay={0.2}>
-          <p className="hero__lede">you are warmly invited to the wedding of</p>
+        <Reveal delay={0.15}>
+          <p className="eyebrow eyebrow--center">Together with their families</p>
+        </Reveal>
+        <Reveal delay={0.25}>
+          <p className="hero__lede">save the date for the wedding of</p>
         </Reveal>
 
         <div className="hero__names">
-          <Reveal delay={0.35} y={40}>
+          <Reveal delay={0.4} y={40}>
             <h1 className="hero__name">Chantily</h1>
           </Reveal>
-          <Reveal delay={0.5}>
+          <Reveal delay={0.55}>
             <span className="hero__and">and</span>
           </Reveal>
-          <Reveal delay={0.65} y={40}>
+          <Reveal delay={0.7} y={40}>
             <h1 className="hero__name">Maksim</h1>
           </Reveal>
         </div>
 
-        <Reveal delay={0.85}>
+        <Reveal delay={0.9}>
           <p className="hero__tagline">Two hearts &nbsp;·&nbsp; One journey &nbsp;·&nbsp; Forever</p>
         </Reveal>
 
-        <Reveal delay={1}>
+        <Reveal delay={1.05}>
           <div className="hero__date-pill">
             <span>Saturday, May 28, 2028</span>
             <span className="hero__date-pill-dot" />
@@ -77,33 +77,46 @@ function Hero() {
 function StorySection() {
   return (
     <section className="story">
-      <ParallaxLayer speed={0.12} className="story__sprig story__sprig--left">
-        <Botanical variant="sprig" className="botanical botanical--tall" />
-      </ParallaxLayer>
-      <ParallaxLayer speed={0.18} className="story__sprig story__sprig--right">
-        <Botanical variant="sprig" className="botanical botanical--tall" />
+      <ParallaxLayer speed={0.14} className="story__bloom story__bloom--left">
+        <Botanical variant="bloom" className="botanical" />
       </ParallaxLayer>
 
-      <div className="story__inner">
-        <Reveal>
-          <p className="eyebrow eyebrow--center">Save the date</p>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <h2 className="story__heading">
-            After years of building a life together, we're ready to make it official —
-            surrounded by the people we love most.
-          </h2>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <Botanical variant="frame" className="botanical story__divider" />
-        </Reveal>
-        <Reveal delay={0.25}>
-          <p className="story__body">
-            We can't wait to celebrate with you on the shores of Bohol — with island air,
-            good food, and the ones who mean the most to us.
-          </p>
-        </Reveal>
+      <div className="story__grid">
+        <div className="story__lead">
+          <Reveal>
+            <p className="eyebrow">Our story</p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2 className="story__heading">
+              After years of building a life together, we're ready to make it official.
+            </h2>
+          </Reveal>
+        </div>
+
+        <div className="story__copy">
+          <Reveal delay={0.15}>
+            <ParallaxLayer speed={0.08} className="story__rule-wrap">
+              <Botanical variant="frame" className="botanical story__divider" />
+            </ParallaxLayer>
+          </Reveal>
+          <Reveal delay={0.25}>
+            <p className="story__body">
+              We can't wait to celebrate with you on the shores of Bohol — with island air,
+              good food, and the ones who mean the most to us.
+            </p>
+          </Reveal>
+          <Reveal delay={0.35}>
+            <p className="story__body story__body--soft">
+              Expect an evening of warm breezes, long tables, and dancing until the tide
+              comes in. Come as you are, and stay as long as the stories last.
+            </p>
+          </Reveal>
+        </div>
       </div>
+
+      <ParallaxLayer speed={0.2} className="story__sprig story__sprig--right">
+        <Botanical variant="sprig" className="botanical botanical--tall" />
+      </ParallaxLayer>
     </section>
   );
 }
@@ -111,138 +124,101 @@ function StorySection() {
 function DetailsSection() {
   return (
     <section className="details">
-      <div className="details__panel">
-        <Reveal>
-          <p className="eyebrow eyebrow--center">The details</p>
-        </Reveal>
+      <ParallaxLayer speed={0.1} className="details__garland">
+        <Botanical variant="garland" className="botanical" />
+      </ParallaxLayer>
 
-        <Reveal delay={0.1}>
-          <div className="details__date">
-            <span className="details__weekday">Saturday</span>
-            <div className="details__daymonth">
-              <span className="details__month">May</span>
-              <span className="details__day">28</span>
-              <span className="details__year">2028</span>
+      <div className="details__grid">
+        <Reveal>
+          <div className="details__col details__col--date">
+            <p className="eyebrow">The details</p>
+            <div className="details__date">
+              <span className="details__weekday">Saturday</span>
+              <div className="details__daymonth">
+                <span className="details__month">May</span>
+                <span className="details__day">28</span>
+                <span className="details__year">2028</span>
+              </div>
+              <span className="details__time">Ceremony at 4:00 PM</span>
+              <span className="details__subject-note">(subject to change — we'll let you know!)</span>
             </div>
-            <span className="details__time">at 4:00 PM</span>
           </div>
         </Reveal>
 
-        <Reveal delay={0.2}>
-          <div className="details__venue">
-            <svg viewBox="0 0 24 24" className="pin" aria-hidden="true">
-              <path
-                fill="currentColor"
-                d="M12 2C7.86 2 4.5 5.36 4.5 9.5c0 5.53 6.53 11.7 6.8 11.96a1 1 0 0 0 1.4 0c.27-.26 6.8-6.43 6.8-11.96C19.5 5.36 16.14 2 12 2Zm0 10.25a2.75 2.75 0 1 1 0-5.5 2.75 2.75 0 0 1 0 5.5Z"
-              />
-            </svg>
-            <p className="details__venue-name">Bellevue Pangalao</p>
-            <p className="details__venue-loc">Bohol, Philippines</p>
+        <Reveal delay={0.15}>
+          <div className="details__col details__col--venue">
+            <div className="details__venue">
+              <svg viewBox="0 0 24 24" className="pin" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M12 2C7.86 2 4.5 5.36 4.5 9.5c0 5.53 6.53 11.7 6.8 11.96a1 1 0 0 0 1.4 0c.27-.26 6.8-6.43 6.8-11.96C19.5 5.36 16.14 2 12 2Zm0 10.25a2.75 2.75 0 1 1 0-5.5 2.75 2.75 0 0 1 0 5.5Z"
+                />
+              </svg>
+              <p className="details__venue-name">Bohol, Philippines</p>
+            </div>
+
+            <div className="details__invite-note">
+              <p className="details__invite-title">Formal invitation to follow</p>
+              <p className="details__invite-sub">
+                with all the details you'll need
+                <br />
+                <em>for now, just pencil us in</em>
+              </p>
+            </div>
           </div>
         </Reveal>
 
         <Reveal delay={0.3}>
-          <div className="details__rsvp-note">
-            <p className="details__rsvp-title">Kindly RSVP</p>
-            <p className="details__rsvp-sub">
-              by {RSVP_DEADLINE}
-              <br />
-              <em>(6 months before the wedding)</em>
-            </p>
+          <div className="details__col details__col--countdown">
+            <p className="details__countdown-label">Counting down to forever</p>
+            <Countdown />
           </div>
-        </Reveal>
-
-        <Reveal delay={0.4}>
-          <Countdown />
         </Reveal>
       </div>
     </section>
   );
 }
 
-function RsvpSection() {
-  const [choice, setChoice] = useState<'yes' | 'no' | null>(null);
-
-  const mailHref = (response: 'Yes' | 'No') =>
-    `mailto:${RSVP_EMAIL}?subject=${encodeURIComponent(
-      `RSVP — Chantily & Maksim's Wedding`
-    )}&body=${encodeURIComponent(`${response}, I'll be there!\n\nGuest name(s): `)}`;
-
+function TravelSection() {
   return (
-    <section className="rsvp">
-      <ParallaxLayer speed={0.15} className="rsvp__sprig">
+    <section className="travel" id="travel-info">
+      <ParallaxLayer speed={0.15} className="travel__sprig">
         <Botanical variant="sprig" className="botanical botanical--tall" />
       </ParallaxLayer>
 
-      <div className="rsvp__inner">
+      <div className="travel__inner">
         <Reveal>
-          <p className="eyebrow eyebrow--center">Will you join us?</p>
+          <p className="eyebrow eyebrow--center">Until then</p>
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="rsvp__heading">We can't wait to celebrate with you</h2>
+          <h2 className="travel__heading">A formal invitation with RSVP details will follow</h2>
         </Reveal>
 
         <Reveal delay={0.2}>
-          <div className="rsvp__buttons">
-            <motion.a
-              href={mailHref('Yes')}
-              className="rsvp__btn rsvp__btn--yes"
-              onClick={() => setChoice('yes')}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
-            >
-              <EnvelopeIcon />
-              <span>
-                Yes <em>I'll be there</em>
-              </span>
-            </motion.a>
-            <motion.a
-              href={mailHref('No')}
-              className="rsvp__btn rsvp__btn--no"
-              onClick={() => setChoice('no')}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
-            >
-              <EnvelopeIcon />
-              <span>
-                No <em>sorry</em>
-              </span>
-            </motion.a>
-          </div>
-        </Reveal>
-
-        {choice && (
-          <motion.p
-            className="rsvp__ack"
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-          >
-            Your email app should be opening now — thank you for letting us know!
-          </motion.p>
-        )}
-
-        <Reveal delay={0.3}>
-          <p className="rsvp__via">
-            Your response will be sent via email to
-            <br />
-            <a href={`mailto:${RSVP_EMAIL}`} className="rsvp__email">
-              {RSVP_EMAIL}
-            </a>
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.4}>
-          <div className="rsvp__travel">
+          <div className="travel__note">
             <Botanical variant="frame" className="botanical" />
             <h3>For our guests travelling from afar</h3>
-            <p>
+            <p className="travel__note-intro">
               We understand that many of you will be travelling from far away to celebrate
-              with us. As a small gesture of our appreciation, accommodation will be provided
-              for our guests.
+              with us — please read these basics before you start planning.
             </p>
+            <ul className="travel__list">
+              <li>
+                <strong>Lodging dates:</strong> accommodation is covered for four nights,
+                May 26–30, 2028 — book any extra nights on either side yourself.
+              </li>
+              <li>
+                <strong>Airport:</strong> fly into Bohol–Panglao International Airport (TAG).
+              </li>
+              <li>
+                <strong>Passport validity:</strong> international guests should have at least
+                6 months' validity remaining beyond your travel dates to enter the Philippines.
+              </li>
+              <li>
+                <strong>Booking guide:</strong> a hotel block and step-by-step booking guide
+                will be posted here closer to the date.
+              </li>
+            </ul>
           </div>
         </Reveal>
       </div>
@@ -250,14 +226,20 @@ function RsvpSection() {
   );
 }
 
-function EnvelopeIcon() {
+function ImportantJumpButton() {
   return (
-    <svg viewBox="0 0 24 24" className="envelope" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M3 6.5A1.5 1.5 0 0 1 4.5 5h15A1.5 1.5 0 0 1 21 6.5v11A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5v-11Zm1.7.2 6.77 5.42a.8.8 0 0 0 1.06 0L19.3 6.7a.5.5 0 0 0-.3-.9H5a.5.5 0 0 0-.3.9Z"
-      />
-    </svg>
+    <motion.a
+      href="#travel-info"
+      className="jump-btn"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.96 }}
+    >
+      <span className="jump-btn__dot" aria-hidden="true" />
+      Important — travel info
+    </motion.a>
   );
 }
 
@@ -265,7 +247,7 @@ function Footer() {
   return (
     <footer className="footer">
       <Reveal>
-        <Botanical variant="frame" className="botanical" />
+        <Botanical variant="wreath" className="botanical footer__wreath" />
       </Reveal>
       <Reveal delay={0.1}>
         <p className="footer__names">Chantily &amp; Maksim</p>
@@ -283,8 +265,9 @@ function App() {
       <Hero />
       <StorySection />
       <DetailsSection />
-      <RsvpSection />
+      <TravelSection />
       <Footer />
+      <ImportantJumpButton />
     </>
   );
 }

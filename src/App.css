@@ -761,6 +761,26 @@
   transition: opacity 400ms var(--ease-out-quart);
 }
 
+/* The clip is 16:9 landscape. On portrait screens, filling the height with
+   `cover` crops the sides hard enough to cut off the names, while plain
+   letterboxing shrinks the card to an unreadable strip. Fit the full width,
+   centre it, then scale up modestly: the overflow that gets trimmed is
+   background linen, so the card grows without losing any text. */
+@media (max-aspect-ratio: 1 / 1) {
+  .intro__video {
+    height: auto;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%) scale(1.35);
+  }
+}
+
+@media (max-aspect-ratio: 3 / 5) {
+  .intro__video {
+    transform: translateY(-50%) scale(1.6);
+  }
+}
+
 .intro__video[data-visible='true'] {
   opacity: 1;
 }

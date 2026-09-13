@@ -40,13 +40,13 @@ function Hero() {
 
         <div className="hero__names">
           <Reveal delay={0.4} y={40}>
-            <h1 className="hero__name">Chantily</h1>
+            <h1 className="hero__name">Maksim</h1>
           </Reveal>
           <Reveal delay={0.55}>
             <span className="hero__and">and</span>
           </Reveal>
           <Reveal delay={0.7} y={40}>
-            <h1 className="hero__name">Maksim</h1>
+            <h1 className="hero__name">Chantily</h1>
           </Reveal>
         </div>
 
@@ -275,7 +275,7 @@ function Footer() {
         <Botanical variant="wreath" className="botanical footer__wreath" />
       </Reveal>
       <Reveal delay={0.1}>
-        <p className="footer__names">Chantily &amp; Maksim</p>
+        <p className="footer__names">Maksim &amp; Chantily</p>
       </Reveal>
       <Reveal delay={0.15}>
         <p className="footer__date">05 · 28 · 2028</p>

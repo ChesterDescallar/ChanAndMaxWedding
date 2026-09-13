@@ -35,7 +35,10 @@ export function EnvelopeIntro({ onFinish }: { onFinish: () => void }) {
             preload="auto"
             playsInline
             muted
-            onEnded={() => setStage('done')}
+            onEnded={() => {
+              // Hold on the final frame so the card stays readable before handing off.
+              window.setTimeout(() => setStage('done'), 900);
+            }}
             onError={() => setStage('done')}
             data-visible={stage === 'playing'}
           />
@@ -49,7 +52,7 @@ export function EnvelopeIntro({ onFinish }: { onFinish: () => void }) {
               >
                 <Botanical variant="bloom" className="botanical intro__crest" />
                 <p className="intro__eyebrow">Save the date</p>
-                <p className="intro__names">Chantily &amp; Maksim</p>
+                <p className="intro__names">Maksim &amp; Chantily</p>
 
                 <motion.button
                   type="button"

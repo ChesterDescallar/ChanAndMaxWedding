@@ -558,7 +558,8 @@
 
 .travel {
   position: relative;
-  padding: clamp(6.5rem, 17vw, 13rem) 1.5rem;
+  /* Extra bottom padding clears the tide wave anchored to this section. */
+  padding: clamp(6.5rem, 17vw, 13rem) 1.5rem clamp(9rem, 21vw, 16rem);
   background: var(--ivory-50);
   overflow: hidden;
 }
@@ -895,6 +896,172 @@
   cursor: pointer;
 }
 
+
+/* ==================== Paper grain ==================== */
+
+/* Fixed, non-scrolling overlay: repainting grain on a scrolling container
+   is a known way to destroy mobile frame rates. */
+.grain {
+  position: fixed;
+  inset: 0;
+  /* Above page content but below the jump button (40), skip link (100) and
+     intro overlay (200), so `multiply` never dulls interactive elements. */
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0.42;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain {
+    opacity: 0.28;
+  }
+}
+
+/* ==================== Tide wave ==================== */
+
+.tide {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(60px, 9vw, 110px);
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--forest-700);
+  line-height: 0;
+}
+
+.tide[data-flip='true'] {
+  top: 0;
+  bottom: auto;
+  transform: scaleY(-1);
+}
+
+.tide__svg {
+  width: 200%;
+  height: 100%;
+  display: block;
+}
+
+/* ==================== Signature ==================== */
+
+.signature {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.6rem, 4.2vw, 2.5rem);
+  line-height: 1.25;
+  margin: 0 0 0.5rem;
+}
+
+.signature__ink {
+  display: inline-block;
+  /* Clip-path reveal crops descenders tightly, so give them room. */
+  padding-bottom: 0.12em;
+}
+
+.footer__signature {
+  color: var(--ivory-50);
+}
+
+/* ==================== Scratch card ==================== */
+
+.scratch {
+  margin: clamp(3rem, 7vw, 4.5rem) auto 0;
+  max-width: 30rem;
+  text-align: center;
+}
+
+.scratch__hint {
+  font-family: var(--font-label);
+  font-size: 0.74rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--forest-600);
+  margin: 0 0 1rem;
+}
+
+.scratch__card {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--ivory-100);
+  min-height: 8.5rem;
+  display: grid;
+}
+
+.scratch__under {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.25rem, 4vw, 1.75rem);
+}
+
+.scratch__message {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  line-height: 1.6;
+  color: var(--forest-800);
+  margin: 0;
+  max-width: 34ch;
+}
+
+.scratch__foil {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+  border-radius: 6px;
+}
+
+.scratch__foil:active {
+  cursor: grabbing;
+}
+
+.scratch__reveal {
+  margin-top: 0.9rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.scratch--plain {
+  margin: clamp(3rem, 7vw, 4.5rem) auto 0;
+  max-width: 30rem;
+}
+
+/* ==================== Love, in five languages ==================== */
+
+.love-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0;
+}
+
+.love-row__item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.love-row__sep {
+  color: var(--gold-600);
+  margin: 0 0.75em;
+}
 
 /* ==================== Petals ==================== */
 

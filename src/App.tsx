@@ -4,11 +4,15 @@ import { AddToCalendar } from './components/AddToCalendar';
 import { Botanical } from './components/Botanical';
 import { BoholClock, Countdown, milestoneLabel } from './components/Countdown';
 import { EnvelopeIntro } from './components/EnvelopeIntro';
+import { LoveCycle } from './components/LoveCycle';
 import { ParallaxLayer } from './components/ParallaxLayer';
 import { PetalFall } from './components/PetalFall';
 import { Reveal } from './components/Reveal';
 import { ScaleIn } from './components/ScaleIn';
+import { ScratchCard } from './components/ScratchCard';
 import { ScrubText } from './components/ScrubText';
+import { Signature } from './components/Signature';
+import { TideWave } from './components/TideWave';
 import './App.css';
 
 function Hero() {
@@ -56,7 +60,7 @@ function Hero() {
         </div>
 
         <Reveal delay={0.9}>
-          <p className="hero__tagline">Two hearts &nbsp;·&nbsp; One journey &nbsp;·&nbsp; Forever</p>
+          <LoveCycle />
         </Reveal>
 
         <Reveal delay={1.05}>
@@ -145,8 +149,6 @@ function DetailsSection() {
                   <span className="details__year">2028</span>
                 </div>
               </ScaleIn>
-              <span className="details__time">Ceremony at 4:00 PM</span>
-              <span className="details__subject-note">(subject to change, we'll let you know!)</span>
             </div>
           </div>
         </Reveal>
@@ -246,7 +248,13 @@ function TravelSection() {
             For those who can make the journey, we can't wait to celebrate together! 🌴🥂
           </p>
         </Reveal>
+
+        <Reveal delay={0.35}>
+          <ScratchCard />
+        </Reveal>
       </div>
+
+      <TideWave className="tide--footer" />
     </section>
   );
 }
@@ -284,9 +292,7 @@ function Footer() {
       <Reveal>
         <Botanical variant="wreath" className="botanical footer__wreath" />
       </Reveal>
-      <Reveal delay={0.1}>
-        <p className="footer__names">Maksim &amp; Chantily</p>
-      </Reveal>
+      <Signature className="footer__signature" />
       <Reveal delay={0.15}>
         <p className="footer__date">05 · 28 · 2028</p>
       </Reveal>
@@ -312,6 +318,7 @@ function App() {
       <TravelSection />
       <Footer />
       <ImportantJumpButton />
+      <div className="grain" aria-hidden="true" />
     </>
   );
 }

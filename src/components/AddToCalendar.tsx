@@ -60,16 +60,40 @@ function buildIcs() {
     .join('\r\n');
 }
 
+const FILENAME = 'maksim-and-chantily-save-the-date.ics';
+
+function isIos() {
+  if (typeof navigator === 'undefined') return false;
+  return (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    // iPadOS 13+ reports as a Mac, so check for a touch-capable "Mac".
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  );
+}
+
 function downloadIcs() {
-  const blob = new Blob([buildIcs()], { type: 'text/calendar;charset=utf-8' });
+  const ics = buildIcs();
+
+  // iOS Safari ignores the `download` attribute on blob: URLs, so the file
+  // never reaches Calendar. Navigating to a data: URL hands the payload to
+  // the system, which opens it in Calendar instead.
+  if (isIos()) {
+    window.location.href = `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}`;
+    return;
+  }
+
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'maksim-and-chantily-save-the-date.ics';
+  link.download = FILENAME;
+  link.rel = 'noopener';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+  // Revoking immediately can cancel the download before the browser reads
+  // the blob, so let the current task finish first.
+  setTimeout(() => URL.revokeObjectURL(url), 10_000);
 }
 
 export function AddToCalendar() {

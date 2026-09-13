@@ -4,6 +4,7 @@ import { AddToCalendar } from './components/AddToCalendar';
 import { Botanical } from './components/Botanical';
 import { BoholClock, Countdown, milestoneLabel } from './components/Countdown';
 import { EnvelopeIntro } from './components/EnvelopeIntro';
+import { InAppBrowserBanner } from './components/InAppBrowserBanner';
 import { LoveCycle } from './components/LoveCycle';
 import { ParallaxLayer } from './components/ParallaxLayer';
 import { PetalFall } from './components/PetalFall';
@@ -225,8 +226,8 @@ function TravelSection() {
             </p>
             <ul className="travel__list">
               <li>
-                <strong>Lodging dates:</strong> accommodation is covered for four nights,
-                May 26 to 30, 2028. Book any extra nights on either side yourself.
+                <strong>Lodging dates:</strong> accommodation is covered for five nights,
+                May 26 to 31, 2028. Book any extra nights on either side yourself.
               </li>
               <li>
                 <strong>Airport:</strong> fly into Bohol–Panglao International Airport (TAG).
@@ -234,10 +235,6 @@ function TravelSection() {
               <li>
                 <strong>Passport validity:</strong> international guests should have at least
                 6 months' validity remaining beyond your travel dates to enter the Philippines.
-              </li>
-              <li>
-                <strong>Booking guide:</strong> a hotel block and step-by-step booking guide
-                will be posted here closer to the date.
               </li>
             </ul>
           </div>
@@ -308,6 +305,7 @@ function App() {
 
   return (
     <>
+      <InAppBrowserBanner />
       {showIntro && <EnvelopeIntro onFinish={() => setShowIntro(false)} />}
       <a href="#main-content" className="skip-link">
         Skip to content

@@ -17,84 +17,12 @@ const GOOGLE_URL =
   `&details=${encodeURIComponent(DETAILS)}` +
   `&location=${encodeURIComponent(LOCATION)}`;
 
-function buildIcs() {
-  // Escape per RFC 5545: backslashes, semicolons, commas, then newlines.
-  const esc = (s: string) => s.replace(/([\\;,])/g, '\\$1').replace(/\n/g, '\\n');
-
-  // RFC 5545 caps lines at 75 octets; longer ones must be folded onto
-  // continuation lines beginning with a space, or strict parsers reject them.
-  const fold = (line: string) => {
-    if (line.length <= 75) return line;
-    const parts = [line.slice(0, 75)];
-    let rest = line.slice(75);
-    while (rest.length > 74) {
-      parts.push(' ' + rest.slice(0, 74));
-      rest = rest.slice(74);
-    }
-    if (rest.length) parts.push(' ' + rest);
-    return parts.join('\r\n');
-  };
-
-  return [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//Maksim and Chantily//Save the Date//EN',
-    'CALSCALE:GREGORIAN',
-    'BEGIN:VEVENT',
-    `UID:wedding-2028-05-28@maksimandchantily`,
-    `DTSTAMP:${START_UTC}`,
-    `DTSTART:${START_UTC}`,
-    `DTEND:${END_UTC}`,
-    `SUMMARY:${esc(TITLE)}`,
-    `DESCRIPTION:${esc(DETAILS)}`,
-    `LOCATION:${esc(LOCATION)}`,
-    'BEGIN:VALARM',
-    'TRIGGER:-P7D',
-    'ACTION:DISPLAY',
-    `DESCRIPTION:${esc(TITLE)}`,
-    'END:VALARM',
-    'END:VEVENT',
-    'END:VCALENDAR',
-  ]
-    .map(fold)
-    .join('\r\n');
-}
-
-const FILENAME = 'maksim-and-chantily-save-the-date.ics';
-
-function isIos() {
-  if (typeof navigator === 'undefined') return false;
-  return (
-    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-    // iPadOS 13+ reports as a Mac, so check for a touch-capable "Mac".
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
-  );
-}
-
-function downloadIcs() {
-  const ics = buildIcs();
-
-  // iOS Safari ignores the `download` attribute on blob: URLs, so the file
-  // never reaches Calendar. Navigating to a data: URL hands the payload to
-  // the system, which opens it in Calendar instead.
-  if (isIos()) {
-    window.location.href = `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}`;
-    return;
-  }
-
-  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = FILENAME;
-  link.rel = 'noopener';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  // Revoking immediately can cancel the download before the browser reads
-  // the blob, so let the current task finish first.
-  setTimeout(() => URL.revokeObjectURL(url), 10_000);
-}
+// Served as a real file (public/save-the-date.ics) rather than built
+// client-side. iOS Safari's handling of script-triggered downloads and
+// `data:` navigations to Calendar is unreliable across versions - a plain
+// link the guest taps directly is the one approach that works consistently
+// on Apple Calendar, Outlook, and everything else that reads .ics.
+const ICS_URL = '/save-the-date.ics';
 
 export function AddToCalendar() {
   const [open, setOpen] = useState(false);
@@ -131,16 +59,14 @@ export function AddToCalendar() {
             >
               Google Calendar
             </a>
-            <button
-              type="button"
+            <a
               className="cal__option"
-              onClick={() => {
-                downloadIcs();
-                setOpen(false);
-              }}
+              href={ICS_URL}
+              download="maksim-and-chantily-save-the-date.ics"
+              onClick={() => setOpen(false)}
             >
-              Apple / Outlook
-            </button>
+              Apple Calendar
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

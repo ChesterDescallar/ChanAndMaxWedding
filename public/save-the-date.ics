@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Maksim and Chantily//Save the Date//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:wedding-2028-05-28@maksimandchantily
+DTSTAMP:20280528T080000Z
+DTSTART:20280528T080000Z
+DTEND:20280528T160000Z
+SUMMARY:Maksim & Chantily - Wedding
+DESCRIPTION:Save the date! Maksim and Chantily are getting married in Boho
+ l\, Philippines. A formal invitation with RSVP details will follow.
+LOCATION:Bohol\, Philippines
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Maksim & Chantily - Wedding
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -37,10 +37,14 @@
   position: relative;
   min-height: 100svh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background: var(--ivory-50);
+  /* Room for the scroll cue below the content, plus a floor so it never
+     sits flush against the very bottom edge on short viewports. */
+  padding-bottom: clamp(3.5rem, 9vh, 5.5rem);
 }
 
 .hero__bg {
@@ -159,10 +163,12 @@
 }
 
 .hero__scroll-cue {
-  position: absolute;
-  bottom: clamp(1.5rem, 4vh, 2.5rem);
-  left: 50%;
-  transform: translateX(-50%);
+  /* Normal flow, not absolutely positioned: this guarantees it renders
+     below the hero content and can never overlap the date pill on short
+     viewports, where the content alone can fill most of the visible area. */
+  position: relative;
+  margin-top: auto;
+  padding-top: clamp(1.5rem, 4vh, 2.5rem);
   display: flex;
   flex-direction: column;
   align-items: center;

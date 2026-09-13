@@ -21,13 +21,51 @@ const units: { key: keyof ReturnType<typeof getTimeLeft>; label: string }[] = [
   { key: 'seconds', label: 'Seconds' },
 ];
 
-export function Countdown() {
+/** Swaps the label as the date draws closer, so repeat visits feel alive. */
+export function milestoneLabel(days: number) {
+  if (days <= 0) return 'Today is the day';
+  if (days === 1) return 'Tomorrow';
+  if (days <= 7) return 'Just days away now';
+  if (days <= 30) return 'Less than a month to go';
+  if (days <= 100) return `${days} days to go`;
+  if (days <= 365) return 'Less than a year to go';
+  return 'Counting down to forever';
+}
+
+/** Current wall-clock time in Bohol, for guests planning from other zones. */
+export function BoholClock() {
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 30_000);
+    return () => clearInterval(id);
+  }, []);
+
+  const time = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Manila',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  }).format(now);
+
+  return (
+    <p className="bohol-clock">
+      It's <strong>{time}</strong> in Bohol right now
+    </p>
+  );
+}
+
+export function Countdown({ onDaysChange }: { onDaysChange?: (days: number) => void } = {}) {
   const [time, setTime] = useState(getTimeLeft);
 
   useEffect(() => {
     const id = setInterval(() => setTime(getTimeLeft()), 1000);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    onDaysChange?.(time.days);
+  }, [time.days, onDaysChange]);
 
   return (
     <div className="countdown">

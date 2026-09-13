@@ -896,6 +896,119 @@
 }
 
 
+/* ==================== Petals ==================== */
+
+.petals {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.petals__item {
+  position: absolute;
+  top: 0;
+  display: block;
+  will-change: transform, opacity;
+}
+
+/* ==================== Bohol clock ==================== */
+
+.bohol-clock {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: oklch(92% 0.02 90 / 0.6);
+  margin: 1.5rem 0 0;
+}
+
+.bohol-clock strong {
+  font-style: normal;
+  font-family: var(--font-label);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--gold-400);
+}
+
+/* ==================== Add to calendar ==================== */
+
+.cal {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.cal__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.4rem;
+  border: 1px solid oklch(90% 0.02 90 / 0.28);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ivory-50);
+  font-family: var(--font-label);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 220ms var(--ease-out-quart),
+    border-color 220ms var(--ease-out-quart);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cal__trigger:hover {
+    background: oklch(90% 0.02 90 / 0.08);
+    border-color: var(--gold-400);
+  }
+}
+
+.cal__icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--gold-400);
+}
+
+.cal__options {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 0.75rem auto 0;
+  overflow: hidden;
+  border: 1px solid oklch(90% 0.02 90 / 0.18);
+  border-radius: 6px;
+  background: oklch(90% 0.02 90 / 0.18);
+  width: 15rem;
+  max-width: 100%;
+}
+
+@media (min-width: 900px) {
+  .cal__options {
+    margin-left: 0;
+  }
+}
+
+.cal__option {
+  padding: 0.7rem 1rem;
+  border: none;
+  background: var(--forest-900);
+  color: var(--ivory-100);
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 180ms var(--ease-out-quart);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cal__option:hover {
+    background: var(--forest-800);
+  }
+}
+
 /* ==================== Responsive ==================== */
 
 @media (max-width: 640px) {

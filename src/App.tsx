@@ -1,9 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
+import { AddToCalendar } from './components/AddToCalendar';
 import { Botanical } from './components/Botanical';
-import { Countdown } from './components/Countdown';
+import { BoholClock, Countdown, milestoneLabel } from './components/Countdown';
 import { EnvelopeIntro } from './components/EnvelopeIntro';
 import { ParallaxLayer } from './components/ParallaxLayer';
+import { PetalFall } from './components/PetalFall';
 import { Reveal } from './components/Reveal';
 import { ScaleIn } from './components/ScaleIn';
 import { ScrubText } from './components/ScrubText';
@@ -21,6 +23,7 @@ function Hero() {
     <section className="hero" ref={ref}>
       <motion.div className="hero__bg" style={{ y: bgY, scale }} />
       <div className="hero__vignette" />
+      <PetalFall />
 
       <motion.div className="hero__corner hero__corner--tl" style={{ y: fgY }}>
         <Botanical variant="corner" className="botanical" />
@@ -121,6 +124,8 @@ function StorySection() {
 }
 
 function DetailsSection() {
+  const [daysLeft, setDaysLeft] = useState(Infinity);
+
   return (
     <section className="details">
       <ParallaxLayer speed={0.1} className="details__garland">
@@ -166,13 +171,16 @@ function DetailsSection() {
                 <em>for now, just pencil us in</em>
               </p>
             </div>
+
+            <AddToCalendar />
           </div>
         </Reveal>
 
         <Reveal delay={0.3}>
           <div className="details__col details__col--countdown">
-            <p className="details__countdown-label">Counting down to forever</p>
-            <Countdown />
+            <p className="details__countdown-label">{milestoneLabel(daysLeft)}</p>
+            <Countdown onDaysChange={setDaysLeft} />
+            <BoholClock />
           </div>
         </Reveal>
       </div>

@@ -19,6 +19,18 @@
   height: auto;
 }
 
+/* Word-by-word scroll reveal. Words are inline-block so each can carry its
+   own opacity without breaking the line box or natural wrapping. */
+.scrub__word {
+  display: inline-block;
+  white-space: pre;
+  will-change: opacity;
+}
+
+.scrub__word::after {
+  content: ' ';
+}
+
 /* ==================== Hero ==================== */
 
 .hero {
@@ -178,7 +190,7 @@
 
 .story {
   position: relative;
-  padding: clamp(5rem, 12vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+  padding: clamp(6.5rem, 16vw, 12rem) clamp(1.5rem, 6vw, 5rem);
   background: var(--ivory-100);
   overflow: hidden;
 }
@@ -276,7 +288,7 @@
 
 .details {
   position: relative;
-  padding: clamp(5rem, 14vw, 9rem) 1.5rem;
+  padding: clamp(6.5rem, 17vw, 13rem) 1.5rem;
   background: var(--forest-900);
   color: var(--ivory-100);
   overflow: hidden;
@@ -370,11 +382,22 @@
   color: oklch(92% 0.02 90 / 0.75);
 }
 
+.details__daymonth-wrap {
+  align-self: stretch;
+}
+
 .details__daymonth {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 0.85rem;
   margin: 0.5rem 0;
+}
+
+@media (min-width: 900px) {
+  .details__daymonth {
+    justify-content: flex-start;
+  }
 }
 
 .details__month,
@@ -388,8 +411,9 @@
 
 .details__day {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 8vw, 5.5rem);
-  line-height: 1;
+  font-size: clamp(5rem, 11vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
   color: var(--ivory-50);
   font-variant-numeric: lining-nums;
 }
@@ -534,7 +558,7 @@
 
 .travel {
   position: relative;
-  padding: clamp(5rem, 14vw, 9rem) 1.5rem;
+  padding: clamp(6.5rem, 17vw, 13rem) 1.5rem;
   background: var(--ivory-50);
   overflow: hidden;
 }
@@ -624,6 +648,17 @@
   background: var(--ivory-100);
   border: 1px solid var(--line);
   border-radius: 4px;
+  box-shadow: 0 1px 2px oklch(24% 0.05 155 / 0.04);
+  transition:
+    transform 500ms var(--ease-out-quart),
+    box-shadow 500ms var(--ease-out-quart);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .travel__list:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 34px oklch(24% 0.05 155 / 0.1);
+  }
 }
 
 .travel__list li {

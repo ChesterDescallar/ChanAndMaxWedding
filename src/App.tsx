@@ -5,6 +5,8 @@ import { Countdown } from './components/Countdown';
 import { EnvelopeIntro } from './components/EnvelopeIntro';
 import { ParallaxLayer } from './components/ParallaxLayer';
 import { Reveal } from './components/Reveal';
+import { ScaleIn } from './components/ScaleIn';
+import { ScrubText } from './components/ScrubText';
 import './App.css';
 
 function Hero() {
@@ -100,18 +102,14 @@ function StorySection() {
               <Botanical variant="frame" className="botanical story__divider" />
             </ParallaxLayer>
           </Reveal>
-          <Reveal delay={0.25}>
-            <p className="story__body">
-              We can't wait to celebrate with you on the shores of Bohol, with island air,
-              good food, and the ones who mean the most to us.
-            </p>
-          </Reveal>
-          <Reveal delay={0.35}>
-            <p className="story__body story__body--soft">
-              Expect an evening of warm breezes, long tables, and dancing until the tide
-              comes in. Come as you are, and stay as long as the stories last.
-            </p>
-          </Reveal>
+          <ScrubText className="story__body">
+            We can't wait to celebrate with you on the shores of Bohol, with island air, good
+            food, and the ones who mean the most to us.
+          </ScrubText>
+          <ScrubText className="story__body story__body--soft">
+            Expect an evening of warm breezes, long tables, and dancing until the tide comes
+            in. Come as you are, and stay as long as the stories last.
+          </ScrubText>
         </div>
       </div>
 
@@ -135,11 +133,13 @@ function DetailsSection() {
             <p className="eyebrow">The details</p>
             <div className="details__date">
               <span className="details__weekday">Saturday</span>
-              <div className="details__daymonth">
-                <span className="details__month">May</span>
-                <span className="details__day">28</span>
-                <span className="details__year">2028</span>
-              </div>
+              <ScaleIn className="details__daymonth-wrap" from={0.78}>
+                <div className="details__daymonth">
+                  <span className="details__month">May</span>
+                  <span className="details__day">28</span>
+                  <span className="details__year">2028</span>
+                </div>
+              </ScaleIn>
               <span className="details__time">Ceremony at 4:00 PM</span>
               <span className="details__subject-note">(subject to change, we'll let you know!)</span>
             </div>
@@ -195,6 +195,8 @@ function TravelSection() {
           <h2 className="travel__heading">A formal invitation with RSVP details will follow</h2>
         </Reveal>
 
+        {/* Deliberately a plain reveal, not a scroll-scrub: the jump button
+            anchors here, and scrubbed text lands half-faded on arrival. */}
         <Reveal delay={0.15}>
           <p className="travel__reassurance">
             We know it's a long way to travel, and we completely understand that joining us

@@ -78,6 +78,11 @@ h3 {
   font-weight: 500;
   margin: 0;
   color: var(--forest-900);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 a {
@@ -92,4 +97,32 @@ img {
 ::selection {
   background: var(--gold-400);
   color: var(--forest-900);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gold-600);
+  outline-offset: 3px;
+  transition: outline-offset 120ms var(--ease-out-quart);
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--forest-900);
+  color: var(--ivory-50);
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: top 200ms var(--ease-out-quart);
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+  outline-offset: 3px;
 }

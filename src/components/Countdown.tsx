@@ -31,21 +31,28 @@ export function Countdown() {
 
   return (
     <div className="countdown">
-      {units.map((unit, i) => (
-        <div className="countdown__unit" key={unit.key}>
-          <motion.span
-            key={`${unit.key}-${time[unit.key]}`}
-            className="countdown__value"
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
-          >
-            {String(time[unit.key]).padStart(2, '0')}
-          </motion.span>
-          <span className="countdown__label">{unit.label}</span>
-          {i < units.length - 1 && <span className="countdown__sep" aria-hidden="true">·</span>}
-        </div>
-      ))}
+      {units.map((unit, i) => {
+        const isSeconds = unit.key === 'seconds';
+        return (
+          <div className="countdown__unit" key={unit.key}>
+            <motion.span
+              key={`${unit.key}-${time[unit.key]}`}
+              className="countdown__value"
+              initial={isSeconds ? { opacity: 0.4 } : { opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={
+                isSeconds
+                  ? { duration: 0.15, ease: 'linear' }
+                  : { duration: 0.35, ease: [0.25, 1, 0.5, 1] }
+              }
+            >
+              {String(time[unit.key]).padStart(2, '0')}
+            </motion.span>
+            <span className="countdown__label">{unit.label}</span>
+            {i < units.length - 1 && <span className="countdown__sep" aria-hidden="true">·</span>}
+          </div>
+        );
+      })}
     </div>
   );
 }

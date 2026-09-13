@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Botanical } from './components/Botanical';
 import { Countdown } from './components/Countdown';
+import { EnvelopeIntro } from './components/EnvelopeIntro';
 import { ParallaxLayer } from './components/ParallaxLayer';
 import { Reveal } from './components/Reveal';
 import './App.css';
@@ -31,10 +32,10 @@ function Hero() {
           <Botanical variant="bloom" className="botanical hero__crest" />
         </Reveal>
         <Reveal delay={0.15}>
-          <p className="eyebrow eyebrow--center">Together with their families</p>
+          <p className="eyebrow eyebrow--center">Save the date 🤍</p>
         </Reveal>
         <Reveal delay={0.25}>
-          <p className="hero__lede">save the date for the wedding of</p>
+          <p className="hero__lede">together with their families, warmly announce the wedding of</p>
         </Reveal>
 
         <div className="hero__names">
@@ -55,9 +56,9 @@ function Hero() {
 
         <Reveal delay={1.05}>
           <div className="hero__date-pill">
-            <span>Saturday, May 28, 2028</span>
+            <span>28 May 2028</span>
             <span className="hero__date-pill-dot" />
-            <span>Bohol, Philippines</span>
+            <span>Bohol, Philippines 🇵🇭</span>
           </div>
         </Reveal>
       </motion.div>
@@ -76,7 +77,7 @@ function Hero() {
 
 function StorySection() {
   return (
-    <section className="story">
+    <section className="story" id="main-content">
       <ParallaxLayer speed={0.14} className="story__bloom story__bloom--left">
         <Botanical variant="bloom" className="botanical" />
       </ParallaxLayer>
@@ -101,7 +102,7 @@ function StorySection() {
           </Reveal>
           <Reveal delay={0.25}>
             <p className="story__body">
-              We can't wait to celebrate with you on the shores of Bohol — with island air,
+              We can't wait to celebrate with you on the shores of Bohol, with island air,
               good food, and the ones who mean the most to us.
             </p>
           </Reveal>
@@ -140,7 +141,7 @@ function DetailsSection() {
                 <span className="details__year">2028</span>
               </div>
               <span className="details__time">Ceremony at 4:00 PM</span>
-              <span className="details__subject-note">(subject to change — we'll let you know!)</span>
+              <span className="details__subject-note">(subject to change, we'll let you know!)</span>
             </div>
           </div>
         </Reveal>
@@ -194,18 +195,26 @@ function TravelSection() {
           <h2 className="travel__heading">A formal invitation with RSVP details will follow</h2>
         </Reveal>
 
+        <Reveal delay={0.15}>
+          <p className="travel__reassurance">
+            We know it's a long way to travel, and we completely understand that joining us
+            may not be possible for everyone. There is absolutely no pressure. Your love and
+            support mean just as much to us from wherever you are.
+          </p>
+        </Reveal>
+
         <Reveal delay={0.2}>
           <div className="travel__note">
             <Botanical variant="frame" className="botanical" />
             <h3>For our guests travelling from afar</h3>
             <p className="travel__note-intro">
               We understand that many of you will be travelling from far away to celebrate
-              with us — please read these basics before you start planning.
+              with us. Please read these basics before you start planning.
             </p>
             <ul className="travel__list">
               <li>
                 <strong>Lodging dates:</strong> accommodation is covered for four nights,
-                May 26–30, 2028 — book any extra nights on either side yourself.
+                May 26 to 30, 2028. Book any extra nights on either side yourself.
               </li>
               <li>
                 <strong>Airport:</strong> fly into Bohol–Panglao International Airport (TAG).
@@ -221,12 +230,28 @@ function TravelSection() {
             </ul>
           </div>
         </Reveal>
+
+        <Reveal delay={0.3}>
+          <p className="travel__closing">
+            For those who can make the journey, we can't wait to celebrate together! 🌴🥂
+          </p>
+        </Reveal>
       </div>
     </section>
   );
 }
 
 function ImportantJumpButton() {
+  const [canHover, setCanHover] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(hover: hover) and (pointer: fine)');
+    setCanHover(query.matches);
+    const listener = (e: MediaQueryListEvent) => setCanHover(e.matches);
+    query.addEventListener('change', listener);
+    return () => query.removeEventListener('change', listener);
+  }, []);
+
   return (
     <motion.a
       href="#travel-info"
@@ -234,11 +259,11 @@ function ImportantJumpButton() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -2 }}
+      whileHover={canHover ? { y: -2 } : undefined}
       whileTap={{ scale: 0.96 }}
     >
       <span className="jump-btn__dot" aria-hidden="true" />
-      Important — travel info
+      Important travel info
     </motion.a>
   );
 }
@@ -260,8 +285,17 @@ function Footer() {
 }
 
 function App() {
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
+
   return (
     <>
+      {showIntro && <EnvelopeIntro onFinish={() => setShowIntro(false)} />}
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <Hero />
       <StorySection />
       <DetailsSection />

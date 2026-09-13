@@ -1243,6 +1243,356 @@
   }
 }
 
+/* ==================== Holiday / travel guide ==================== */
+
+.holiday {
+  position: relative;
+  padding: clamp(6.5rem, 17vw, 13rem) 1.5rem;
+  background: var(--ivory-100);
+  overflow: hidden;
+}
+
+.holiday__bloom {
+  position: absolute;
+  top: clamp(-2rem, -4vw, -3rem);
+  right: clamp(-3rem, -5vw, -4rem);
+  width: clamp(160px, 20vw, 260px);
+  opacity: 0.3;
+  color: var(--gold-600);
+  pointer-events: none;
+  transform: scaleX(-1);
+}
+
+.holiday__inner {
+  position: relative;
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+.holiday__heading {
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--forest-900);
+  text-align: center;
+  max-width: 26ch;
+  margin: 0 auto 1.5rem;
+}
+
+.holiday__lede {
+  font-size: clamp(1.02rem, 1.8vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--text-soft);
+  text-align: center;
+  max-width: 46ch;
+  margin: 0 auto clamp(3.5rem, 8vw, 5rem);
+}
+
+.holiday__note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--text-soft);
+  text-align: center;
+  max-width: 40ch;
+  margin: clamp(3rem, 7vw, 4rem) auto 0;
+}
+
+/* Tag pills, shared by Bohol highlights and other destination cards */
+
+.holiday-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: var(--ivory-100);
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--forest-700);
+}
+
+.holiday-tag__icon {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  color: var(--gold-600);
+}
+
+/* Bohol: the featured destination */
+
+.holiday-bohol {
+  position: relative;
+  margin-bottom: clamp(4rem, 9vw, 6rem);
+  padding: clamp(2rem, 5vw, 3rem);
+  background: var(--forest-900);
+  color: var(--ivory-100);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.holiday-bohol::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, oklch(35% 0.06 155 / 0.6), transparent 65%);
+  pointer-events: none;
+}
+
+.holiday-bohol__head {
+  position: relative;
+  text-align: center;
+  max-width: 40ch;
+  margin: 0 auto clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.holiday-bohol__eyebrow {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin: 0 0 0.75rem;
+}
+
+.holiday-bohol__name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  color: var(--ivory-50);
+  margin: 0 0 0.75rem;
+}
+
+.holiday-bohol__body {
+  font-size: clamp(1rem, 1.6vw, 1.1rem);
+  color: oklch(92% 0.02 90 / 0.8);
+  margin: 0;
+}
+
+.holiday-bohol__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .holiday-bohol__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .holiday-bohol__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.holiday-highlight {
+  padding: 1.25rem;
+  background: oklch(100% 0 0 / 0.04);
+  border: 1px solid oklch(90% 0.02 90 / 0.16);
+  border-radius: 4px;
+  transition:
+    transform 400ms var(--ease-out-quart),
+    background 400ms var(--ease-out-quart);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .holiday-highlight:hover {
+    transform: translateY(-3px);
+    background: oklch(100% 0 0 / 0.07);
+  }
+}
+
+.holiday-highlight__name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: var(--ivory-50);
+  margin: 0 0 0.5rem;
+}
+
+.holiday-highlight__body {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: oklch(92% 0.02 90 / 0.72);
+  margin: 0 0 0.9rem;
+}
+
+/* .holiday-highlight only exists inside the dark Bohol card, so this is
+   safe to scope broadly; .holiday-dest__highlight (Cebu/Siquijor/Dumaguete)
+   sits on light cards and must keep the default .holiday-tag styling. */
+.holiday-highlight .holiday-tag {
+  background: oklch(100% 0 0 / 0.06);
+  border-color: oklch(90% 0.02 90 / 0.2);
+  color: oklch(92% 0.02 90 / 0.85);
+}
+
+.holiday-highlight__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Cebu, Siquijor and other destination cards */
+
+.holiday-dest-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.holiday-dest-grid--single {
+  grid-template-columns: minmax(0, 26rem);
+  justify-content: center;
+}
+
+@media (max-width: 860px) {
+  .holiday-dest-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.holiday-dest {
+  padding: clamp(1.5rem, 4vw, 2rem);
+  background: var(--ivory-50);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 1px 2px oklch(24% 0.05 155 / 0.04);
+}
+
+.holiday-dest--optional {
+  background: var(--paper);
+  border-style: dashed;
+}
+
+.holiday-dest__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.holiday-dest__name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  color: var(--forest-900);
+  margin: 0 0 0.3rem;
+}
+
+.holiday-dest__tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--text-soft);
+  margin: 0;
+}
+
+.holiday-dest__days {
+  flex: none;
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-600);
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.holiday-dest__highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.holiday-dest__highlight h4 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--forest-900);
+  margin: 0 0 0.4rem;
+}
+
+.holiday-dest__highlight p {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+  margin: 0 0 0.75rem;
+}
+
+/* Suggested itineraries */
+
+.holiday-itineraries {
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  background: var(--ivory-50);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.holiday-itineraries__heading {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+  color: var(--forest-900);
+  text-align: center;
+  margin: 0 0 1.75rem;
+}
+
+.holiday-itineraries__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.holiday-itinerary {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  background: var(--ivory-50);
+  align-items: baseline;
+}
+
+.holiday-itinerary__length {
+  font-family: var(--font-label);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--gold-600);
+  white-space: nowrap;
+}
+
+.holiday-itinerary__route {
+  font-size: 0.92rem;
+  color: var(--forest-800);
+}
+
+@media (max-width: 560px) {
+  .holiday-itinerary {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+
 /* ==================== Responsive ==================== */
 
 @media (max-width: 640px) {

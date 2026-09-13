@@ -4,6 +4,7 @@ import { AddToCalendar } from './components/AddToCalendar';
 import { Botanical } from './components/Botanical';
 import { BoholClock, Countdown, milestoneLabel } from './components/Countdown';
 import { EnvelopeIntro } from './components/EnvelopeIntro';
+import { HolidaySection } from './components/HolidaySection';
 import { InAppBrowserBanner } from './components/InAppBrowserBanner';
 import { LoveCycle } from './components/LoveCycle';
 import { ParallaxLayer } from './components/ParallaxLayer';
@@ -314,6 +315,7 @@ function App() {
       <StorySection />
       <DetailsSection />
       <TravelSection />
+      <HolidaySection />
       <Footer />
       <ImportantJumpButton />
       <div className="grain" aria-hidden="true" />

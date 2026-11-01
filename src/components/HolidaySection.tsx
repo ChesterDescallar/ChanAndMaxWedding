@@ -1,3 +1,4 @@
+import { useId, useState } from 'react';
 import { Botanical } from './Botanical';
 import { ParallaxLayer } from './ParallaxLayer';
 import { Reveal } from './Reveal';
@@ -184,29 +185,50 @@ function HighlightCard({ highlight, delay }: { highlight: Highlight; delay: numb
 }
 
 function DestinationCard({ destination, delay }: { destination: Destination; delay: number }) {
+  const [open, setOpen] = useState(false);
+  const panelId = useId();
+
   return (
     <Reveal delay={delay}>
-      <div className={`holiday-dest ${destination.optional ? 'holiday-dest--optional' : ''}`}>
-        <div className="holiday-dest__head">
-          <div>
-            <h3 className="holiday-dest__name">{destination.name}</h3>
-            <p className="holiday-dest__tagline">{destination.tagline}</p>
-          </div>
-          <span className="holiday-dest__days">{destination.days}</span>
-        </div>
+      <div
+        className={`holiday-dest ${destination.optional ? 'holiday-dest--optional' : ''}`}
+        data-open={open}
+      >
+        <h3 className="holiday-dest__heading">
+          <button
+            type="button"
+            className="holiday-dest__head"
+            aria-expanded={open}
+            aria-controls={panelId}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span>
+              <span className="holiday-dest__name">{destination.name}</span>
+              <span className="holiday-dest__tagline">{destination.tagline}</span>
+            </span>
+            <span className="holiday-dest__meta">
+              <span className="holiday-dest__days">{destination.days}</span>
+              <span className="holiday-dest__toggle" aria-hidden="true" />
+            </span>
+          </button>
+        </h3>
 
-        <div className="holiday-dest__highlights">
-          {destination.highlights.map((h) => (
-            <div className="holiday-dest__highlight" key={h.name}>
-              <h4>{h.name}</h4>
-              <p>{h.body}</p>
-              <div className="holiday-highlight__tags">
-                {h.tags.map((tag) => (
-                  <TagPill key={tag} tag={tag} />
-                ))}
-              </div>
+        <div className="holiday-dest__panel" id={panelId}>
+          <div className="holiday-dest__panel-inner">
+            <div className="holiday-dest__highlights">
+              {destination.highlights.map((h) => (
+                <div className="holiday-dest__highlight" key={h.name}>
+                  <h4>{h.name}</h4>
+                  <p>{h.body}</p>
+                  <div className="holiday-highlight__tags">
+                    {h.tags.map((tag) => (
+                      <TagPill key={tag} tag={tag} />
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </Reveal>

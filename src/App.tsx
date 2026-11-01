@@ -1,5 +1,12 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'motion/react';
 import { AddToCalendar } from './components/AddToCalendar';
 import { Botanical } from './components/Botanical';
 import { BoholClock, Countdown, milestoneLabel } from './components/Countdown';
@@ -16,8 +23,31 @@ import { Signature } from './components/Signature';
 import { TideWave } from './components/TideWave';
 import './App.css';
 
-function Hero() {
+const INTRO_SEEN_KEY = 'mc-intro-seen';
+
+// Returning guests go straight to the site. Storage can throw in private
+// windows, where the intro simply plays again.
+function shouldShowIntro() {
+  if (typeof window === 'undefined') return true;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  try {
+    return localStorage.getItem(INTRO_SEEN_KEY) === null;
+  } catch {
+    return true;
+  }
+}
+
+function rememberIntroSeen() {
+  try {
+    localStorage.setItem(INTRO_SEEN_KEY, '1');
+  } catch {
+    // Nothing to do: the intro just replays next visit.
+  }
+}
+
+function Hero({ ready }: { ready: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
   const fgY = useTransform(scrollYProgress, [0, 1], ['0%', '55%']);
@@ -38,37 +68,46 @@ function Hero() {
       </motion.div>
 
       <motion.div className="hero__content" style={{ opacity: fade }}>
-        <Reveal delay={0.05}>
+        <Reveal delay={0.05} ready={ready}>
           <Botanical variant="bloom" className="botanical hero__crest" />
         </Reveal>
-        <Reveal delay={0.15}>
+        <Reveal delay={0.15} ready={ready}>
           <p className="eyebrow eyebrow--center">Save the date 🤍</p>
         </Reveal>
-        <Reveal delay={0.25}>
+        <Reveal delay={0.25} ready={ready}>
           <p className="hero__lede">together with their families, warmly announce the wedding of</p>
         </Reveal>
 
         <div className="hero__names">
-          <Reveal delay={0.4} y={40}>
+          <Reveal delay={0.4} y={40} ready={ready}>
             <h1 className="hero__name">Maksim</h1>
           </Reveal>
-          <Reveal delay={0.55}>
+          <Reveal delay={0.55} ready={ready}>
             <span className="hero__and">and</span>
           </Reveal>
-          <Reveal delay={0.7} y={40}>
+          <Reveal delay={0.7} y={40} ready={ready}>
             <h1 className="hero__name">Chantily</h1>
           </Reveal>
         </div>
 
-        <Reveal delay={0.9}>
+        <Reveal delay={0.9} ready={ready}>
           <LoveCycle />
         </Reveal>
 
-        <Reveal delay={1.05}>
+        <Reveal delay={1.05} ready={ready}>
           <div className="hero__date-pill">
             <span>20 April 2028</span>
             <span className="hero__date-pill-dot" />
             <span>Bohol, Philippines 🇵🇭</span>
+            {!reduce && (
+              <motion.span
+                className="hero__date-pill-shine"
+                aria-hidden="true"
+                initial={{ x: '-110%', skewX: -18 }}
+                animate={ready ? { x: '300%' } : undefined}
+                transition={{ duration: 1.2, delay: 1.8, ease: [0.77, 0, 0.175, 1] }}
+              />
+            )}
           </div>
         </Reveal>
       </motion.div>
@@ -245,8 +284,20 @@ function TravelSection() {
   );
 }
 
-function ImportantJumpButton() {
+function ImportantJumpButton({ ready }: { ready: boolean }) {
   const [canHover, setCanHover] = useState(false);
+  const [atTravel, setAtTravel] = useState(false);
+  const [hasReachedTravel, setHasReachedTravel] = useState(false);
+  const { scrollY } = useScroll();
+
+  // Once the guest has reached the travel section the shortcut has done its job.
+  useMotionValueEvent(scrollY, 'change', () => {
+    const travel = document.getElementById('travel-info');
+    if (!travel) return;
+    const reached = travel.getBoundingClientRect().top < window.innerHeight * 0.6;
+    setAtTravel(reached);
+    if (reached) setHasReachedTravel(true);
+  });
 
   useEffect(() => {
     const query = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -257,18 +308,27 @@ function ImportantJumpButton() {
   }, []);
 
   return (
-    <motion.a
-      href="#travel-info"
-      className="jump-btn"
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={canHover ? { y: -2 } : undefined}
-      whileTap={{ scale: 0.96 }}
-    >
-      <span className="jump-btn__dot" aria-hidden="true" />
-      Important travel info
-    </motion.a>
+    <AnimatePresence>
+      {ready && !atTravel && (
+        <motion.a
+          href="#travel-info"
+          className="jump-btn"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 12, transition: { duration: 0.25, ease: [0.25, 1, 0.5, 1] } }}
+          transition={{
+            duration: 0.6,
+            delay: hasReachedTravel ? 0 : 1.4,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          whileHover={canHover ? { y: -2 } : undefined}
+          whileTap={{ scale: 0.96 }}
+        >
+          <span className="jump-btn__dot" aria-hidden="true" />
+          Important travel info
+        </motion.a>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -287,25 +347,32 @@ function Footer() {
 }
 
 function App() {
-  const [showIntro, setShowIntro] = useState(() => {
-    if (typeof window === 'undefined') return true;
-    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  });
+  const [showIntro, setShowIntro] = useState(shouldShowIntro);
+  // Separate from showIntro: the page starts animating as the intro begins to
+  // fade, not after it has gone.
+  const [ready, setReady] = useState(!showIntro);
+
+  function handleIntroReveal() {
+    setReady(true);
+    rememberIntroSeen();
+  }
 
   return (
     <>
       <InAppBrowserBanner />
-      {showIntro && <EnvelopeIntro onFinish={() => setShowIntro(false)} />}
+      {showIntro && (
+        <EnvelopeIntro onReveal={handleIntroReveal} onFinish={() => setShowIntro(false)} />
+      )}
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>
-      <Hero />
+      <Hero ready={ready} />
       <StorySection />
       <DetailsSection />
       <TravelSection />
       <HolidaySection />
       <Footer />
-      <ImportantJumpButton />
+      <ImportantJumpButton ready={ready} />
       <div className="grain" aria-hidden="true" />
     </>
   );

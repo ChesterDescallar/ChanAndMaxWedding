@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { PetalBurst } from './PetalBurst';
 
 const TITLE = 'Maksim & Chantily - Wedding';
 const LOCATION = 'Bohol, Philippines';
@@ -26,6 +27,12 @@ const ICS_URL = '/save-the-date.ics';
 
 export function AddToCalendar() {
   const [open, setOpen] = useState(false);
+  const [saves, setSaves] = useState(0);
+
+  function handleSave() {
+    setOpen(false);
+    setSaves((count) => count + 1);
+  }
 
   return (
     <div className="cal">
@@ -39,6 +46,7 @@ export function AddToCalendar() {
       >
         <CalendarIcon />
         Add to your calendar
+        {saves > 0 && <PetalBurst key={saves} />}
       </motion.button>
 
       <AnimatePresence>
@@ -55,7 +63,7 @@ export function AddToCalendar() {
               href={GOOGLE_URL}
               target="_blank"
               rel="noreferrer noopener"
-              onClick={() => setOpen(false)}
+              onClick={handleSave}
             >
               Google Calendar
             </a>
@@ -63,7 +71,7 @@ export function AddToCalendar() {
               className="cal__option"
               href={ICS_URL}
               download="maksim-and-chantily-save-the-date.ics"
-              onClick={() => setOpen(false)}
+              onClick={handleSave}
             >
               Apple Calendar
             </a>

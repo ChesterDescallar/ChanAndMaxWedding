@@ -201,6 +201,8 @@
 }
 
 .hero__date-pill {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -221,6 +223,19 @@
   border-radius: 999px;
   background: var(--gold-600);
   flex: none;
+}
+
+.hero__date-pill-shine {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 35%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    oklch(90% 0.09 85 / 0.6),
+    transparent
+  );
+  pointer-events: none;
 }
 
 .hero__scroll-cue {
@@ -1049,6 +1064,27 @@
   margin: 0 0.75em;
 }
 
+/* Marcellus has no Cyrillic, and the serif it falls back to is much lighter. */
+.love-row [lang='ru'] {
+  font-weight: 600;
+}
+
+.love-row__break {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .love-row__break {
+    display: block;
+    flex-basis: 100%;
+    height: 0;
+  }
+
+  .love-row__sep--break {
+    display: none;
+  }
+}
+
 /* ==================== Petals ==================== */
 
 .petals {
@@ -1091,7 +1127,22 @@
   margin-top: 2rem;
 }
 
+.petal-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--gold-400);
+  pointer-events: none;
+}
+
+.petal-burst__item {
+  position: absolute;
+  display: block;
+  line-height: 0;
+}
+
 .cal__trigger {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
@@ -1365,6 +1416,7 @@
 .holiday-dest-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  align-items: start;
   gap: clamp(1.5rem, 4vw, 2.5rem);
   margin-bottom: clamp(2.5rem, 6vw, 3.5rem);
 }
@@ -1393,17 +1445,94 @@
   border-style: dashed;
 }
 
+.holiday-dest__heading {
+  margin: 0;
+  font: inherit;
+}
+
 .holiday-dest__head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--line);
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.holiday-dest__meta {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+/* A plus built from two bars, turning into a close mark when open. */
+.holiday-dest__toggle {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  color: var(--gold-600);
+  transition: transform 300ms var(--ease-out-quart);
+}
+
+.holiday-dest__toggle::before,
+.holiday-dest__toggle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  margin-top: -0.75px;
+  background: currentColor;
+}
+
+.holiday-dest__toggle::after {
+  transform: rotate(90deg);
+}
+
+.holiday-dest[data-open='true'] .holiday-dest__toggle {
+  transform: rotate(45deg);
+}
+
+.holiday-dest__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows 360ms var(--ease-out-expo),
+    visibility 0s linear 360ms;
+}
+
+.holiday-dest[data-open='true'] .holiday-dest__panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows 360ms var(--ease-out-expo),
+    visibility 0s;
+}
+
+.holiday-dest__panel-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .holiday-dest__panel,
+  .holiday-dest[data-open='true'] .holiday-dest__panel,
+  .holiday-dest__toggle {
+    transition: none;
+  }
 }
 
 .holiday-dest__name {
+  display: block;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 500;
@@ -1413,6 +1542,7 @@
 }
 
 .holiday-dest__tagline {
+  display: block;
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 0.92rem;
@@ -1437,6 +1567,9 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
 }
 
 .holiday-dest__highlight h4 {

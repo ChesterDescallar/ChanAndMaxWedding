@@ -24,7 +24,7 @@ const PETALS: Petal[] = [
   { id: 6, left: 93, size: 16, delay: 5.5, duration: 18, drift: 28, spin: 150, opacity: 0.3 },
 ];
 
-function PetalShape({ size, opacity }: { size: number; opacity: number }) {
+export function PetalShape({ size, opacity }: { size: number; opacity: number }) {
   const r = size / 2;
   return (
     <svg width={size} height={size} viewBox="-12 -12 24 24" fill="none" aria-hidden="true">

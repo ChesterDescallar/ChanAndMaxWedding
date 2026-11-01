@@ -6,9 +6,9 @@ const LOCATION = 'Bohol, Philippines';
 const DETAILS =
   'Save the date! Maksim and Chantily are getting married in Bohol, Philippines. A formal invitation with RSVP details will follow.';
 
-// 4:00 PM Philippine time (UTC+8) on 28 May 2028, as UTC stamps.
-const START_UTC = '20280528T080000Z';
-const END_UTC = '20280528T160000Z';
+// 4:00 PM Philippine time (UTC+8) on 20 April 2028, as UTC stamps.
+const START_UTC = '20280420T080000Z';
+const END_UTC = '20280420T160000Z';
 
 const GOOGLE_URL =
   'https://calendar.google.com/calendar/render?action=TEMPLATE' +

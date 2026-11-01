@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
-const WEDDING_DATE = new Date('2028-05-28T16:00:00+08:00');
+const WEDDING_DATE = new Date('2028-04-20T16:00:00+08:00');
 
 function getTimeLeft() {
   const diff = Math.max(0, WEDDING_DATE.getTime() - Date.now());
@@ -29,7 +29,7 @@ export function milestoneLabel(days: number) {
   if (days <= 30) return 'Less than a month to go';
   if (days <= 100) return `${days} days to go`;
   if (days <= 365) return 'Less than a year to go';
-  return 'Counting down to forever';
+  return 'Every day brings us closer to our favourite day';
 }
 
 /** Current wall-clock time in Bohol, for guests planning from other zones. */

@@ -61,7 +61,7 @@ export function EnvelopeIntro({ onFinish }: { onFinish: () => void }) {
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
                 >
-                  Open invitation
+                  Open
                 </motion.button>
               </motion.div>
             )}

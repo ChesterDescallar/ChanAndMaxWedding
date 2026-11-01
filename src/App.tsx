@@ -11,7 +11,6 @@ import { ParallaxLayer } from './components/ParallaxLayer';
 import { PetalFall } from './components/PetalFall';
 import { Reveal } from './components/Reveal';
 import { ScaleIn } from './components/ScaleIn';
-import { ScratchCard } from './components/ScratchCard';
 import { ScrubText } from './components/ScrubText';
 import { Signature } from './components/Signature';
 import { TideWave } from './components/TideWave';
@@ -67,7 +66,7 @@ function Hero() {
 
         <Reveal delay={1.05}>
           <div className="hero__date-pill">
-            <span>28 May 2028</span>
+            <span>20 April 2028</span>
             <span className="hero__date-pill-dot" />
             <span>Bohol, Philippines 🇵🇭</span>
           </div>
@@ -115,10 +114,6 @@ function StorySection() {
             We can't wait to celebrate with you on the shores of Bohol, with island air, good
             food, and the ones who mean the most to us.
           </ScrubText>
-          <ScrubText className="story__body story__body--soft">
-            Expect an evening of warm breezes, long tables, and dancing until the tide comes
-            in. Come as you are, and stay as long as the stories last.
-          </ScrubText>
         </div>
       </div>
 
@@ -143,11 +138,11 @@ function DetailsSection() {
           <div className="details__col details__col--date">
             <p className="eyebrow">The details</p>
             <div className="details__date">
-              <span className="details__weekday">Saturday</span>
+              <span className="details__weekday">Thursday</span>
               <ScaleIn className="details__daymonth-wrap" from={0.78}>
                 <div className="details__daymonth">
-                  <span className="details__month">May</span>
-                  <span className="details__day">28</span>
+                  <span className="details__month">April</span>
+                  <span className="details__day">20</span>
                   <span className="details__year">2028</span>
                 </div>
               </ScaleIn>
@@ -227,11 +222,8 @@ function TravelSection() {
             </p>
             <ul className="travel__list">
               <li>
-                <strong>Lodging dates:</strong> accommodation is covered for five nights,
-                May 26 to 31, 2028. Book any extra nights on either side yourself.
-              </li>
-              <li>
-                <strong>Airport:</strong> fly into Bohol–Panglao International Airport (TAG).
+                <strong>Lodging dates:</strong> accommodation is covered for four nights,
+                April 18 to 22, 2028. Book any extra nights on either side yourself.
               </li>
               <li>
                 <strong>Passport validity:</strong> international guests should have at least
@@ -245,10 +237,6 @@ function TravelSection() {
           <p className="travel__closing">
             For those who can make the journey, we can't wait to celebrate together! 🌴🥂
           </p>
-        </Reveal>
-
-        <Reveal delay={0.35}>
-          <ScratchCard />
         </Reveal>
       </div>
 
@@ -292,7 +280,7 @@ function Footer() {
       </Reveal>
       <Signature className="footer__signature" />
       <Reveal delay={0.15}>
-        <p className="footer__date">05 · 28 · 2028</p>
+        <p className="footer__date">04 · 20 · 2028</p>
       </Reveal>
     </footer>
   );

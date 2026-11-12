@@ -46,6 +46,12 @@ const BOHOL_HIGHLIGHTS: Highlight[] = [
     tags: ['nature'],
   },
   {
+    name: 'Alicia Panoramic Park, Alicia',
+    body:
+      'Rolling green hills, ridge walks and panoramic views across Bohol. Particularly spectacular around sunrise, when clouds can settle over the landscape.',
+    tags: ['nature', 'adventure'],
+  },
+  {
     name: 'Philippine Tarsier Sanctuary',
     body:
       "Meet one of the world's smallest primates in a protected patch of forest. Gentle, quiet, and a favourite with everyone who visits.",
@@ -56,6 +62,18 @@ const BOHOL_HIGHLIGHTS: Highlight[] = [
     body:
       'A slow river cruise through jungle-green countryside, with lunch on the water and stops for local music along the banks.',
     tags: ['nature', 'food'],
+  },
+  {
+    name: 'Camugao Falls, Balilihan',
+    body:
+      'A tall waterfall tucked away in a lush green setting, with a natural plunge pool. Particularly appealing for those who enjoy a little adventure.',
+    tags: ['nature', 'water', 'adventure'],
+  },
+  {
+    name: 'Danao Adventure Park, Danao',
+    body:
+      'For the adventurous guests! Activities include ziplining, canyon swings and The Plunge, a giant free-fall experience above a dramatic gorge.',
+    tags: ['adventure'],
   },
   {
     name: 'Balicasag Island',
@@ -74,7 +92,6 @@ const BOHOL_HIGHLIGHTS: Highlight[] = [
 type Destination = {
   name: string;
   tagline: string;
-  days: string;
   optional?: boolean;
   highlights: Highlight[];
 };
@@ -83,7 +100,6 @@ const DESTINATIONS: Destination[] = [
   {
     name: 'Cebu',
     tagline: 'If you have a few extra days',
-    days: '2–4 days',
     highlights: [
       {
         name: 'Cebu City',
@@ -114,7 +130,6 @@ const DESTINATIONS: Destination[] = [
   {
     name: 'Siquijor',
     tagline: 'For something slower and quieter',
-    days: '2–3 days',
     highlights: [
       {
         name: 'Cambugahay Falls',
@@ -144,7 +159,6 @@ const DESTINATIONS: Destination[] = [
 const DUMAGUETE: Destination = {
   name: 'Dumaguete',
   tagline: 'Optional — for the extra curious',
-  days: '1–2 days',
   optional: true,
   highlights: [
     {
@@ -155,18 +169,6 @@ const DUMAGUETE: Destination = {
     },
   ],
 };
-
-type Itinerary = {
-  length: string;
-  route: string;
-};
-
-const ITINERARIES: Itinerary[] = [
-  { length: '3–4 days', route: 'Bohol only — Panglao, Chocolate Hills, Loboc, island hopping' },
-  { length: '5–7 days', route: 'Bohol + Cebu — Cebu, Moalboal, then Panglao and Chocolate Hills' },
-  { length: '7–10 days', route: 'Bohol + Siquijor — Panglao, Chocolate Hills, then Cambugahay Falls' },
-  { length: '10+ days', route: 'The full loop — Cebu, Bohol, Siquijor, and Dumaguete' },
-];
 
 function HighlightCard({ highlight, delay }: { highlight: Highlight; delay: number }) {
   return (
@@ -207,7 +209,6 @@ function DestinationCard({ destination, delay }: { destination: Destination; del
               <span className="holiday-dest__tagline">{destination.tagline}</span>
             </span>
             <span className="holiday-dest__meta">
-              <span className="holiday-dest__days">{destination.days}</span>
               <span className="holiday-dest__toggle" aria-hidden="true" />
             </span>
           </button>
@@ -290,21 +291,6 @@ export function HolidaySection() {
         <div className="holiday-dest-grid holiday-dest-grid--single">
           <DestinationCard destination={DUMAGUETE} delay={0} />
         </div>
-
-        {/* Suggested itineraries */}
-        <Reveal delay={0.1}>
-          <div className="holiday-itineraries">
-            <h3 className="holiday-itineraries__heading">A few ways to combine it all</h3>
-            <div className="holiday-itineraries__list">
-              {ITINERARIES.map((it) => (
-                <div className="holiday-itinerary" key={it.length}>
-                  <span className="holiday-itinerary__length">{it.length}</span>
-                  <span className="holiday-itinerary__route">{it.route}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Reveal>
 
         <Reveal delay={0.15}>
           <p className="holiday__note">

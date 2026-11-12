@@ -29,7 +29,7 @@ export function milestoneLabel(days: number) {
   if (days <= 30) return 'Less than a month to go';
   if (days <= 100) return `${days} days to go`;
   if (days <= 365) return 'Less than a year to go';
-  return 'Every day brings us closer to our favourite day';
+  return '"He has made everything beautiful in its time." — Eccl 3:11';
 }
 
 /** Current wall-clock time in Bohol, for guests planning from other zones. */

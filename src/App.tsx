@@ -16,9 +16,9 @@ import { InAppBrowserBanner } from './components/InAppBrowserBanner';
 import { LoveCycle } from './components/LoveCycle';
 import { ParallaxLayer } from './components/ParallaxLayer';
 import { PetalFall } from './components/PetalFall';
+import { PhFlag } from './components/PhFlag';
 import { Reveal } from './components/Reveal';
 import { ScaleIn } from './components/ScaleIn';
-import { ScrubText } from './components/ScrubText';
 import { Signature } from './components/Signature';
 import { TideWave } from './components/TideWave';
 import './App.css';
@@ -74,9 +74,6 @@ function Hero({ ready }: { ready: boolean }) {
         <Reveal delay={0.15} ready={ready}>
           <p className="eyebrow eyebrow--center">Save the date 🤍</p>
         </Reveal>
-        <Reveal delay={0.25} ready={ready}>
-          <p className="hero__lede">together with their families, warmly announce the wedding of</p>
-        </Reveal>
 
         <div className="hero__names">
           <Reveal delay={0.4} y={40} ready={ready}>
@@ -98,7 +95,9 @@ function Hero({ ready }: { ready: boolean }) {
           <div className="hero__date-pill">
             <span>20 April 2028</span>
             <span className="hero__date-pill-dot" />
-            <span>Bohol, Philippines 🇵🇭</span>
+            <span>
+              Bohol, Philippines <PhFlag className="hero__flag" />
+            </span>
             {!reduce && (
               <motion.span
                 className="hero__date-pill-shine"
@@ -131,29 +130,46 @@ function StorySection() {
         <Botanical variant="bloom" className="botanical" />
       </ParallaxLayer>
 
-      <div className="story__grid">
-        <div className="story__lead">
-          <Reveal>
-            <p className="eyebrow">Our story</p>
+      <div className="story__inner">
+        <Reveal>
+          <p className="eyebrow eyebrow--center">Our story</p>
+        </Reveal>
+        <div className="story__row">
+          <Reveal delay={0.2} className="story__photo story__photo--left">
+            <figure className="story__print">
+              <img
+                src="/maksim.png"
+                alt="Maksim as a toddler, beside a Christmas tree"
+                width={424}
+                height={366}
+                loading="lazy"
+                decoding="async"
+                style={{ objectPosition: '40% 55%' }}
+              />
+            </figure>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} className="story__heading-wrap">
             <h2 className="story__heading">
               After years of building a life together, we're ready to make it official.
             </h2>
           </Reveal>
-        </div>
-
-        <div className="story__copy">
-          <Reveal delay={0.15}>
-            <ParallaxLayer speed={0.08} className="story__rule-wrap">
-              <Botanical variant="frame" className="botanical story__divider" />
-            </ParallaxLayer>
+          <Reveal delay={0.3} className="story__photo story__photo--right">
+            <figure className="story__print">
+              <img
+                src="/chantily.jpg"
+                alt="Chantily as a toddler"
+                width={1536}
+                height={2048}
+                loading="lazy"
+                decoding="async"
+                style={{ objectPosition: '40% 35%' }}
+              />
+            </figure>
           </Reveal>
-          <ScrubText className="story__body">
-            We can't wait to celebrate with you on the shores of Bohol, with island air, good
-            food, and the ones who mean the most to us.
-          </ScrubText>
         </div>
+        <Reveal delay={0.25}>
+          <Botanical variant="frame" className="botanical story__divider" />
+        </Reveal>
       </div>
 
       <ParallaxLayer speed={0.2} className="story__sprig story__sprig--right">
@@ -241,8 +257,6 @@ function TravelSection() {
           <h2 className="travel__heading">A formal invitation with RSVP details will follow</h2>
         </Reveal>
 
-        {/* Deliberately a plain reveal, not a scroll-scrub: the jump button
-            anchors here, and scrubbed text lands half-faded on arrival. */}
         <Reveal delay={0.15}>
           <p className="travel__reassurance">
             We know it's a long way to travel, and we completely understand that joining us
@@ -256,13 +270,13 @@ function TravelSection() {
             <Botanical variant="frame" className="botanical" />
             <h3>For our guests travelling from afar</h3>
             <p className="travel__note-intro">
-              We understand that many of you will be travelling from far away to celebrate
-              with us. Please read these basics before you start planning.
+              Please read these basics before you start planning.
             </p>
             <ul className="travel__list">
               <li>
                 <strong>Lodging dates:</strong> accommodation is covered for four nights,
-                April 18 to 22, 2028. Book any extra nights on either side yourself.
+                <strong className="travel__dates">April 18 to 22, 2028</strong>. Guests arriving earlier or departing later may wish to make separate
+                accommodation arrangements.
               </li>
               <li>
                 <strong>Passport validity:</strong> international guests should have at least

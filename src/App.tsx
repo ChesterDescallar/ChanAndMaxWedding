@@ -10,7 +10,6 @@ import {
 import { AddToCalendar } from './components/AddToCalendar';
 import { Botanical } from './components/Botanical';
 import { BoholClock, Countdown, milestoneLabel } from './components/Countdown';
-import { EnvelopeIntro } from './components/EnvelopeIntro';
 import { HolidaySection } from './components/HolidaySection';
 import { InAppBrowserBanner } from './components/InAppBrowserBanner';
 import { LoveCycle } from './components/LoveCycle';
@@ -22,28 +21,6 @@ import { ScaleIn } from './components/ScaleIn';
 import { Signature } from './components/Signature';
 import { TideWave } from './components/TideWave';
 import './App.css';
-
-const INTRO_SEEN_KEY = 'mc-intro-seen';
-
-// Returning guests go straight to the site. Storage can throw in private
-// windows, where the intro simply plays again.
-function shouldShowIntro() {
-  if (typeof window === 'undefined') return true;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
-  try {
-    return localStorage.getItem(INTRO_SEEN_KEY) === null;
-  } catch {
-    return true;
-  }
-}
-
-function rememberIntroSeen() {
-  try {
-    localStorage.setItem(INTRO_SEEN_KEY, '1');
-  } catch {
-    // Nothing to do: the intro just replays next visit.
-  }
-}
 
 function Hero({ ready }: { ready: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -361,22 +338,11 @@ function Footer() {
 }
 
 function App() {
-  const [showIntro, setShowIntro] = useState(shouldShowIntro);
-  // Separate from showIntro: the page starts animating as the intro begins to
-  // fade, not after it has gone.
-  const [ready, setReady] = useState(!showIntro);
-
-  function handleIntroReveal() {
-    setReady(true);
-    rememberIntroSeen();
-  }
+  const ready = true;
 
   return (
     <>
       <InAppBrowserBanner />
-      {showIntro && (
-        <EnvelopeIntro onReveal={handleIntroReveal} onFinish={() => setShowIntro(false)} />
-      )}
       <a href="#main-content" className="skip-link">
         Skip to content
       </a>

@@ -49,7 +49,7 @@ function Hero({ ready }: { ready: boolean }) {
           <Botanical variant="bloom" className="botanical hero__crest" />
         </Reveal>
         <Reveal delay={0.15} ready={ready}>
-          <p className="eyebrow eyebrow--center">Save the date ðŸ¤</p>
+          <p className="eyebrow eyebrow--center">Save the date 🤍</p>
         </Reveal>
 
         <div className="hero__names">
@@ -249,7 +249,7 @@ function TravelSection() {
 
         <Reveal delay={0.3}>
           <p className="travel__closing">
-            For those who can make the journey, we can't wait to celebrate together! ðŸŒ´ðŸ¥‚
+            For those who can make the journey, we can't wait to celebrate together! 🌴🥂
           </p>
         </Reveal>
       </div>
@@ -315,7 +315,7 @@ function Footer() {
       </Reveal>
       <Signature className="footer__signature" />
       <Reveal delay={0.15}>
-        <p className="footer__date">04 Â· 20 Â· 2028</p>
+        <p className="footer__date">04 · 20 · 2028</p>
       </Reveal>
     </footer>
   );

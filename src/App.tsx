@@ -49,7 +49,7 @@ function Hero({ ready }: { ready: boolean }) {
           <Botanical variant="bloom" className="botanical hero__crest" />
         </Reveal>
         <Reveal delay={0.15} ready={ready}>
-          <p className="eyebrow eyebrow--center">Save the date 🤍</p>
+          <p className="eyebrow eyebrow--center">Save the date ðŸ¤</p>
         </Reveal>
 
         <div className="hero__names">
@@ -111,39 +111,23 @@ function StorySection() {
         <Reveal>
           <p className="eyebrow eyebrow--center">Our story</p>
         </Reveal>
-        <div className="story__row">
-          <Reveal delay={0.2} className="story__photo story__photo--left">
-            <figure className="story__print">
-              <img
-                src="/maksim.png"
-                alt="Maksim as a toddler, beside a Christmas tree"
-                width={424}
-                height={366}
-                loading="lazy"
-                decoding="async"
-                style={{ objectPosition: '40% 55%' }}
-              />
-            </figure>
-          </Reveal>
-          <Reveal delay={0.1} className="story__heading-wrap">
-            <h2 className="story__heading">
-              After years of building a life together, we're ready to make it official.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.3} className="story__photo story__photo--right">
-            <figure className="story__print">
-              <img
-                src="/chantily.jpg"
-                alt="Chantily as a toddler"
-                width={1536}
-                height={2048}
-                loading="lazy"
-                decoding="async"
-                style={{ objectPosition: '40% 35%' }}
-              />
-            </figure>
-          </Reveal>
-        </div>
+        <Reveal delay={0.2} className="story__photo">
+          <figure className="story__print">
+            <img
+              src="/chanandmax.png"
+              alt="Maksim and Chantily standing together by a window"
+              width={583}
+              height={446}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="story__heading">
+            After years of building a life together, we're ready to make it official.
+          </h2>
+        </Reveal>
         <Reveal delay={0.25}>
           <Botanical variant="frame" className="botanical story__divider" />
         </Reveal>
@@ -265,7 +249,7 @@ function TravelSection() {
 
         <Reveal delay={0.3}>
           <p className="travel__closing">
-            For those who can make the journey, we can't wait to celebrate together! 🌴🥂
+            For those who can make the journey, we can't wait to celebrate together! ðŸŒ´ðŸ¥‚
           </p>
         </Reveal>
       </div>
@@ -331,7 +315,7 @@ function Footer() {
       </Reveal>
       <Signature className="footer__signature" />
       <Reveal delay={0.15}>
-        <p className="footer__date">04 · 20 · 2028</p>
+        <p className="footer__date">04 Â· 20 Â· 2028</p>
       </Reveal>
     </footer>
   );

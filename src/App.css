@@ -313,69 +313,28 @@
   max-width: 20ch;
 }
 
-/* Phones: the two prints sit side by side above the heading. From 860px
-   they flank it, Maksim on the left and Chantily on the right. */
-.story__row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    'left right'
-    'heading heading';
-  align-items: center;
-  gap: clamp(2rem, 6vw, 2.75rem) clamp(0.75rem, 4vw, 1.5rem);
-  width: 100%;
+.story__photo {
+  margin-bottom: clamp(2rem, 6vw, 3rem);
 }
 
-.story__photo--left {
-  grid-area: left;
-  justify-self: end;
-}
-
-.story__photo--right {
-  grid-area: right;
-  justify-self: start;
-}
-
-.story__heading-wrap {
-  grid-area: heading;
-  display: flex;
-  justify-content: center;
-}
-
-@media (min-width: 860px) {
-  .story__row {
-    grid-template-columns: minmax(0, 13rem) 1fr minmax(0, 13rem);
-    grid-template-areas: 'left heading right';
-    gap: clamp(2rem, 4vw, 3.5rem);
-  }
-}
-
-/* Instant-camera prints, turned toward each other. */
+/* An instant-camera print, set down at a slight angle. Capped at the
+   photo's own width so it never upscales. */
 .story__print {
-  width: clamp(130px, 36vw, 13rem);
+  width: min(100%, 583px);
   margin: 0;
-  padding: 0.55rem 0.55rem 1.9rem;
+  padding: 0.65rem 0.65rem 2.2rem;
   background: var(--ivory-50);
   border-radius: 2px;
   box-shadow:
     0 1px 2px oklch(24% 0.05 155 / 0.08),
     0 12px 28px oklch(24% 0.05 155 / 0.14);
-}
-
-.story__photo--left .story__print {
-  transform: rotate(-4deg);
-}
-
-.story__photo--right .story__print {
-  transform: rotate(3.5deg);
+  transform: rotate(-2deg);
 }
 
 .story__print img {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
   border-radius: 1px;
 }
 
